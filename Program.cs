@@ -1,4 +1,5 @@
 using la_mia_pizzeria_static.Models.Repository;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,14 @@ builder.Services.AddScoped<IDbPizzaRepository, DbPizzaRepository>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//per eliminare problema ciclo infinito, da installare ad ogni progetto il seguente pacchetto
+//dotnet add package Microsoft.AspNetCore.Mvc.NewtonsoftJson --version 6.0.0
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.JsonSerializerOptions.WriteIndented = true;
+});
 
 var app = builder.Build();
 
@@ -30,6 +39,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Pizza}/{action=Index}/{id?}");
+    pattern: "{controller=Guest}/{action=Index}/{id?}");
 
 app.Run();
