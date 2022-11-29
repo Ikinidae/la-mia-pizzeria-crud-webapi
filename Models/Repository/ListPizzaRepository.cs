@@ -63,5 +63,10 @@ namespace la_mia_pizzeria_static.Models.Repository
                 pizza.Ingredients.Add(new Ingredient() { Id = ingredientId, Name = "Fake Ingredient" + ingredientId });
             }
         }
+
+        public List<Pizza> SearchByName(string? name)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

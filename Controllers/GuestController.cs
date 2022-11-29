@@ -23,6 +23,12 @@ namespace la_mia_pizzeria_static.Controllers
             return View();
         }
 
+        public IActionResult Details(int id)
+        {
+            ViewData["title"] = "Dettaglio Pizza";
+            return View(id);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
