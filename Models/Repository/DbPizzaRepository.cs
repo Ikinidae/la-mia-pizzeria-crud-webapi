@@ -8,9 +8,10 @@ namespace la_mia_pizzeria_static.Models.Repository
     public class DbPizzaRepository : IDbPizzaRepository
     {
         private PizzeriaDbContext db;
-        public DbPizzaRepository() : base()
+        public DbPizzaRepository(PizzeriaDbContext _db)
         {
-            db = new PizzeriaDbContext();
+            //db = new PizzeriaDbContext();
+            db = _db;
         }
 
         public List<Pizza> All()
