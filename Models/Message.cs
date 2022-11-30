@@ -11,17 +11,17 @@ namespace la_mia_pizzeria_static.Models
         public int Id { get; set; }
 
         [EmailAddress(ErrorMessage = "La mail deve avere un formato corretto")]
-        [Required(ErrorMessage = "Il campo è obbligatorio")]        
+        [Required(ErrorMessage = "La mail è obbligatoria")]        
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Il campo è obbligatorio")]
+        [Required(ErrorMessage = "Il nome è obbligatorio")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Il campo è obbligatorio")]
+        [Required(ErrorMessage = "Il titolo è obbligatorio")]
         public string Title { get; set; }
 
-        [Required(ErrorMessage = "Il campo è obbligatorio")]
-        [StringLength(500, ErrorMessage = "Il messaggio non può essere più lungo di 500 caratteri")]
+        [Required(ErrorMessage = "Il testo è obbligatorio")]
+        [StringLength(500, ErrorMessage = "Il testo non può essere più lungo di 500 caratteri")]
         [Column(TypeName = "text")]
         public string Text { get; set; }
 
