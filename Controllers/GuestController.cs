@@ -18,21 +18,16 @@ namespace la_mia_pizzeria_static.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
         public IActionResult Details(int id)
         {
             ViewData["title"] = "Dettaglio Pizza";
             return View(id);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult ContactUs()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            ViewData["title"] = "Contattaci";
+            return View();
         }
     }
 }
