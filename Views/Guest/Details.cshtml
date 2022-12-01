@@ -11,6 +11,22 @@
                 <!-- dati di dettaglio post -->
             </div>
         </div>
+
+        <div class="col-12 mt-5 ms-1">
+            <h5>Aggiungi un commento</h5>
+            
+            <form onsubmit="inviaCommento(event)">
+                <div class="mb-3">
+                    <label for="comment-name" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="comment-name">
+                </div>
+                <div class="mb-3">
+                    <label for="comment-text" class="form-label">Testo</label>
+                    <textarea class="form-control" id="comment-text" rows="10"></textarea>
+                </div>
+                <input type="submit" class="btn btn-primary" value="Invia" />
+            </form>
+        </div>
     </div>
 </div>
 
@@ -48,5 +64,37 @@
                     </div>
                 `;
         }).catch(error => console.log(error))
+
+        //per il form dei commenti
+        function inviaCommento(e) {
+
+            e.preventDefault();
+            axios.post('/api/comment', {
+                name: document.querySelector('#comment-name').value,
+                text: document.querySelector('#comment-text').value,
+                pizzaId: @Model
+            }).then(res => {
+                swal("Successo", "Messaggio inserito correttamente!", "success");
+                document.querySelector('#comment-title').value = '';
+                document.querySelector('#comment-text').value = '';
+            }).catch(error => {
+                let errors = "";
+
+                //Object.keys stampa le chiavi dell'oggetto, ad esempio Name, Email, ecc, in forma di array
+                const keys = Object.keys(error.response.data.errors);
+
+                //posso ciclare sull'array
+                keys.forEach(key => {
+
+                    //se c'è più di un errore rifaccio stesso procedimento
+                    const item = error.response.data.errors[key];
+                    item.forEach(error => {
+                        errors += error + "\n ";
+                    })
+                });
+                swal("Errore", errors, "error");
+                console.log(error.response.data.errors);
+            })
+        }
     </script>
 }
