@@ -1,8 +1,18 @@
 using la_mia_pizzeria_static.Data;
 using la_mia_pizzeria_static.Models.Repository;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var connectionString = builder.Configuration.GetConnectionString("PizzeriaDbContextConnection");
+
+builder.Services.AddDbContext<PizzeriaDbContext>(options =>
+    options.UseSqlServer(connectionString));
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<PizzeriaDbContext>();
 
 builder.Services.AddDbContext<PizzeriaDbContext>();
 
@@ -14,6 +24,10 @@ builder.Services.AddScoped<IDbPizzaRepository, DbPizzaRepository>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//da inserirsi sotto a AddControllersWithViews
+builder.Services.AddRazorPages()
+    .AddRazorRuntimeCompilation();
 
 //per eliminare problema ciclo infinito, da installare ad ogni progetto il seguente pacchetto
 //dotnet add package Microsoft.AspNetCore.Mvc.NewtonsoftJson --version 6.0.0
@@ -38,7 +52,12 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+//dopo routing
+app.UseAuthentication();
 app.UseAuthorization();
+
+//prima del MapControllerRoute
+app.MapRazorPages();
 
 app.MapControllerRoute(
     name: "default",

@@ -23,7 +23,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Guest" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Pizza" asp-action="Index">Lista Pizze</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Pizza" asp-action="Index">Admin</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Pizza" asp-action="Create">Aggiungi una nuova pizza</a>
@@ -31,6 +31,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Guest" asp-action="ContactUs">Contattaci</a>
                         </li>
+
+                        @*per aggiungere la componente del login*@
+                        <partial name="_LoginPartial" />
                     </ul>
                 </div>
             </div>
